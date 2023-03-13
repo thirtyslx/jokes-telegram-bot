@@ -10,7 +10,7 @@
 pip install -r requirements.txt
 ```
 
-### 2. Collect jokes database (if you dont have one)
+### 2. Collect jokes database (if you don't have one)
 
 You can specify database name and table where jokes will be saved in `config.py`
 

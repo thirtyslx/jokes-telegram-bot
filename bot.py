@@ -4,10 +4,10 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.markdown import hbold, hcode, hunderline
 
-import config
+from config import BOT_TOKEN, RANDOM_CATEGORY_LABEL
 from bot_functions import get_random_joke, get_categories, get_joke_from_category, change_default_category, get_default_category
 
-bot = Bot(token=config.token, parse_mode=types.ParseMode.HTML)
+bot = Bot(token=BOT_TOKEN, parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot)
 
 
@@ -17,7 +17,7 @@ async def start(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
     await message.answer('Анекдоты', reply_markup=keyboard)
-    await change_default_category(message.from_user.id, 'СЛУЧАЙНАЯ', update=False)
+    await change_default_category(message.from_user.id, RANDOM_CATEGORY_LABEL, is_new_user=True)
 
 
 async def send_joke(
@@ -26,7 +26,7 @@ async def send_joke(
         category: str,
         top_text: str = 'Анекдот',
         keyboard: types.ReplyKeyboardMarkup = None,
-        ):
+):
     joke = joke.replace('\n', '\n\n')
     await bot.send_message(chat_id, f'{hbold(top_text)} ({hunderline(category)}):\n\n{joke}', reply_markup=keyboard)
     # await message.answer(f'{hbold(top_text)} ({hunderline(category)}):\n\n{joke}', reply_markup=keyboard)
@@ -35,7 +35,7 @@ async def send_joke(
 @dp.message_handler(Text(startswith='Случайный'))
 async def random_joke(message: types.Message):
     # print(f'Случайный ({await get_default_category(message.from_user.id)})', 'Изменить Категорию')
-    if (category := await get_default_category(message.from_user.id)) != config.random_category_label:
+    if (category := await get_default_category(message.from_user.id)) != RANDOM_CATEGORY_LABEL:
         joke = await get_joke_from_category(category)
         start_buttons = [f'Случайный ({category})', 'Изменить Категорию']
     else:
@@ -73,7 +73,7 @@ async def process_callback_cat1(callback_query: types.CallbackQuery):
 async def process_category_callback(callback_query: types.CallbackQuery):
     category = callback_query.data.split('category ')[-1]
     await bot.answer_callback_query(callback_query.id)
-    start_buttons = [f'Случайный ({category})' if category != config.random_category_label else 'Случайный', 'Изменить Категорию']
+    start_buttons = [f'Случайный ({category})' if category != RANDOM_CATEGORY_LABEL else 'Случайный', 'Изменить Категорию']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
     # await send_joke(

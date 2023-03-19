@@ -1,4 +1,4 @@
-# Anekdoty Telegram Bot
+# Jokes Telegram Bot
 
 ### Telegram bot, that can send you random jokes or jokes from specific category.
 

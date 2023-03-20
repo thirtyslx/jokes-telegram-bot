@@ -21,7 +21,7 @@ async def send_joke(message: Message,
 
 
 async def __handle_list_categories(message: Message):
-    await message.reply(u(b('Доступные Категоии Анекдотов:')),
+    await message.reply(u(b('Доступные Категории Анекдотов:')),
                         reply_markup=InlineKb.get_list_categories(get_categories()))
 
 

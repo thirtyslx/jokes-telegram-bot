@@ -8,12 +8,12 @@ from bot.misc import Config, b, u, code, url
 from bot.database.methods.get import get_joke_by_category, get_categories
 
 
-async def send_joke(message: Message,
-                    joke: str,
-                    category: str,
-                    top_text: str,
-                    keyboard: ReplyKeyboardMarkup,
-                    ):
+async def __send_joke(message: Message,
+                      joke: str,
+                      category: str,
+                      top_text: str,
+                      keyboard: ReplyKeyboardMarkup,
+                      ):
     joke = joke.replace('\n', '\n\n')
     link = await get_start_link(f"change_category {category}", encode=True)
     await message.answer('{} ({})\n\n{}'.format(u(b(top_text)), b(url(link, category)), joke),
@@ -37,12 +37,12 @@ async def __handle_random_joke(message: Message):
     else:
         category = Config.RAND_BTN
     joke, joke_category = get_joke_by_category(category)
-    await send_joke(message=message,
-                    joke=joke,
-                    category=joke_category,
-                    top_text='Случайный Анекдот',
-                    keyboard=ReplyKb.get_main(category),
-                    )
+    await __send_joke(message=message,
+                      joke=joke,
+                      category=joke_category,
+                      top_text='Случайный Анекдот',
+                      keyboard=ReplyKb.get_main(category),
+                      )
 
 
 async def __cmd_change_category(message: Message, category: str = None):

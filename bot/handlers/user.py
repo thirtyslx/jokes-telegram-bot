@@ -3,6 +3,7 @@ from aiogram.types import Message, CallbackQuery, ReplyKeyboardMarkup
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.deep_linking import get_start_link
 
+import bot.parsing.__main__
 from bot.keyboards import ReplyKb, InlineKb
 from bot.misc import Config, b, u, code, url
 from bot.database.methods.get import get_joke_by_category, get_categories
@@ -74,11 +75,18 @@ async def __cmd_list_categories(message: Message, categories: tuple[str, str] = 
                          reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
 
 
+async def cmd_scrap(msg: Message):
+    # from bot.database.methods.delete import delete_all_jokes
+    await bot.parsing.__main__.gather_data()
+    await msg.answer('Data gathered successfully.', reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
+
+
 def register_user_handlers(dp: Dispatcher) -> None:
     dp.register_message_handler(__handle_random_joke, Text(startswith='Случайный'))
     dp.register_message_handler(__handle_list_categories, Text(equals='Изменить Категорию'))
     dp.register_message_handler(__cmd_change_category, commands='change_category')
     dp.register_message_handler(__cmd_list_categories, commands='list_categories')
+    dp.register_message_handler(cmd_scrap, commands='scrap')
 
     dp.register_callback_query_handler(__handle_change_category,
                                        lambda c: c.data and c.data.startswith('set-category-'))

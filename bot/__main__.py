@@ -10,7 +10,7 @@ from bot.database.models import register_models
 
 
 async def __on_start_up(dp: Dispatcher) -> None:
-    logger.info('Bot starts')
+    logger.info('Bot started')
     register_models()
     register_all_handlers(dp)
 

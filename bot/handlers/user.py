@@ -3,7 +3,7 @@ from aiogram.types import Message, CallbackQuery, ReplyKeyboardMarkup
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.deep_linking import get_start_link
 
-import bot.parsing.__main__
+import bot.parser.__main__
 from bot.keyboards import ReplyKb, InlineKb
 from bot.misc import Config, b, u, code, url
 from bot.database.methods.get import get_joke_by_category, get_categories

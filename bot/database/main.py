@@ -11,7 +11,7 @@ class Database(metaclass=SingletonMeta):
     BASE: Final = declarative_base()
 
     def __init__(self):
-        self.__engine = create_engine('sqlite:///database/jokes.db')
+        self.__engine = create_engine('sqlite:///database/TEMP.db')
         session = sessionmaker(bind=self.__engine)
         self.__session = session()
 

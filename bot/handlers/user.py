@@ -76,9 +76,9 @@ async def __cmd_list_categories(message: Message, categories: tuple[str, str] = 
 
 
 async def cmd_scrap(msg: Message):
-    # from bot.database.methods.delete import delete_all_jokes
-    await bot.parsing.__main__.gather_data()
-    await msg.answer('Data gathered successfully.', reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
+    await msg.answer('Started gathering data', reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
+    await bot.parser.__main__.gather_data()
+    await msg.answer('Gathered data successfully', reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
 
 
 def register_user_handlers(dp: Dispatcher) -> None:

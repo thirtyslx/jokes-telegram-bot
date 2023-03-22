@@ -1,10 +1,11 @@
 from loguru import logger
-from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
-from asyncio import run, create_task, gather
-from aiohttp import ClientSession
 from time import time
 from contextlib import contextmanager
+
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+from aiohttp import ClientSession
+import asyncio
 
 from bot.database.methods.insert import save_joke
 from bot.database.methods.delete import delete_all_jokes
@@ -61,12 +62,12 @@ async def gather_data() -> None:
             tasks = []
             for link, category in await get_categories(s):
                 for page in range(0, 36):
-                    tasks.append(create_task(log(category, page)))
-                    tasks.append(
-                        create_task(save_joke(jokes=await get_jokes_from_page(s, f'{link}index-page-{page}.html'),
-                                              category=category)))
-            await gather(*tasks)
+                    tasks.append(asyncio.create_task(log(category, page)))
+                    tasks.append(asyncio.create_task(
+                        save_joke(jokes=await get_jokes_from_page(s, f'{link}index-page-{page}.html'),
+                                  category=category)))
+            await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
-    run(gather_data())
+    asyncio.run(gather_data())

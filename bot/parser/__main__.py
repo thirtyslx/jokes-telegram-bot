@@ -27,8 +27,8 @@ async def __get_categories(s: ClientSession) -> list[tuple[str, str]]:
     category_items = category_items[7:-2]
     # todo: remove slice
     category_items = category_items[0:1]
-    for i in 13, 7, 6, 4:
-        del category_items[i]
+    # for i in 13, 7, 6, 4:
+    #     del category_items[i]
     category_data = [(f'https://anekdotov.net{c.get("href")}', c.text.strip().capitalize()) for c in category_items]
     return category_data
 
@@ -43,28 +43,24 @@ async def __get_page_soup(s: ClientSession, url: str) -> BeautifulSoup:
     return soup
 
 
-async def __get_jokes_from_page(s: ClientSession, url: str) -> list[str, str]:
+async def __get_jokes_from_page(s: ClientSession, url: str,
+                                category: str, page: int) -> list[str, str]:
+    logger.info(f'Collecting: {page + 1}/36 - {category}')
     soup = await __get_page_soup(s, url)
     jokes = [j.text.strip() for j in soup.find_all('div', class_='anekdot')]
     return jokes
 
 
-async def __log(category: str, page: int) -> None:
-    logger.info(f'Collecting: {category} - {page + 1}/36')
-
-
 async def gather_data() -> None:
     delete_all_jokes()
-    logger.info('Deleted all jokes from db')
     with __timed('Gathered data in {} seconds'):
         logger.info('Started gathering data')
         async with ClientSession() as s:
             tasks = []
             for link, category in await __get_categories(s):
                 for page in range(0, 36):
-                    tasks.append(asyncio.create_task(__log(category, page)))
                     tasks.append(asyncio.create_task(
-                        save_joke(jokes=await __get_jokes_from_page(s, f'{link}index-page-{page}.html'),
+                        save_joke(jokes=await __get_jokes_from_page(s, f'{link}index-page-{page}.html', category, page),
                                   category=category)))
             await asyncio.gather(*tasks)
 

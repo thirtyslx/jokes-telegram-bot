@@ -4,7 +4,7 @@ from .main import Database
 from bot.misc.config import Config
 
 
-class Users(Database.BASE):
+class User(Database.BASE):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, nullable=False, unique=True)
@@ -12,7 +12,7 @@ class Users(Database.BASE):
     default_category = Column(String, default=Config.RAND_CATEGORY)
 
 
-class Jokes(Database.BASE):
+class Joke(Database.BASE):
     __tablename__ = 'jokes'
     id = Column(Integer, primary_key=True, autoincrement=True)
     joke = Column(String, nullable=False, unique=True)

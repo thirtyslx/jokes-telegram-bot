@@ -56,13 +56,13 @@ async def gather_data() -> None:
     with __timed('Gathered data in {} seconds'):
         async with ClientSession() as s:
             tasks = []
+            logger.info('Started gathering data')
             for link, category in await __get_categories(s):
                 # each category has 36 pages, their indexes starts from 0
                 for page in range(0, 36):
                     tasks.append(asyncio.create_task(
                         save_joke(jokes=await __get_jokes_from_page(s, f'{link}index-page-{page}.html', category, page),
                                   category=category)))
-            logger.info('Started gathering data')
             await asyncio.gather(*tasks)
 
 

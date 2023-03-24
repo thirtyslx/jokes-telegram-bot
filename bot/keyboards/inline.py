@@ -12,6 +12,6 @@ class InlineKb(ABC):
         kb = InlineKeyboardMarkup(row_width=2)
         buttons = []
         for c in categories:
-            buttons.append(InlineKeyboardButton(text=c, callback_data=f'set-category-{c}'))
+            buttons.append(InlineKeyboardButton(text=c, callback_data=f'change-category-{c}'))
         kb.add(*buttons)
         return kb

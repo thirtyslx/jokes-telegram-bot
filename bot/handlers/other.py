@@ -4,17 +4,17 @@ from aiogram.utils.deep_linking import decode_payload
 
 from bot.keyboards import ReplyKb
 from bot.misc import Config
-from bot.handlers.user import __cmd_change_category
+from bot.handlers.user import change_category
 
 
-async def __start(message: Message):
+async def __cmd_start(message: Message):
     args = decode_payload(message.get_args())
-    if args.startswith('change_category '):
-        category = args.split('change_category ')[-1]
-        await __cmd_change_category(message, category)
-    else:
+    if not args:
         await message.answer('Анекдоты',
                              reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
+    elif args.startswith('change-category-'):
+        category = args.lstrip('change-category-')
+        await change_category(message, category)
 
 
 async def __help(message: Message):
@@ -22,4 +22,4 @@ async def __help(message: Message):
 
 
 def register_other_handlers(dp: Dispatcher) -> None:
-    dp.register_message_handler(__start, commands='start')
+    dp.register_message_handler(__cmd_start, commands='start')

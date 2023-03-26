@@ -7,7 +7,8 @@ from bot.misc.config import Config
 class User(Database.BASE):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, nullable=False, unique=True)
+    admin = Column(Integer, default=0)
+    telegram_id = Column(Integer, nullable=False, unique=True)
     name = Column(String, nullable=True)
     default_category = Column(String, default=Config.RAND_CATEGORY)
 

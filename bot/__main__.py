@@ -5,7 +5,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from bot.misc import Config
 from bot.handlers import register_all_handlers
 from bot.database.models import register_models
-from bot.misc.pathcontrol import PathControl
+from bot.misc.path_control import PathControl
 
 
 async def __on_start_up(dp: Dispatcher) -> None:

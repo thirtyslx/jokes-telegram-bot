@@ -68,18 +68,11 @@ async def __cmd_list_categories(message: Message):
                          reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
 
 
-async def __cmd_parse(msg: Message):
-    await msg.answer('Started gathering data, please wait...', reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
-    await gather_data()
-    await msg.answer('Gathered data successfully!', reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
-
-
 def register_user_handlers(dp: Dispatcher) -> None:
     dp.register_message_handler(__handle_random_joke, Text(startswith='Случайный'))
     dp.register_message_handler(__handle_list_categories, Text(equals='Изменить Категорию'))
     dp.register_message_handler(__cmd_change_category, commands=['change_category', 'cc'])
     dp.register_message_handler(__cmd_list_categories, commands=['list_categories', 'lc'])
-    dp.register_message_handler(__cmd_parse, commands='parse')
 
     dp.register_callback_query_handler(__handle_change_category,
                                        lambda c: c.data and c.data.startswith('change-category-'))

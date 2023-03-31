@@ -2,12 +2,14 @@ from aiogram import Dispatcher
 from aiogram.types import Message
 from aiogram.utils.deep_linking import decode_payload
 
+from bot.database.methods.create import create_user
 from bot.keyboards import ReplyKb
 from bot.misc import Config
 from bot.handlers.user import change_category
 
 
 async def __cmd_start(message: Message):
+    create_user(message.from_user.id)
     args = decode_payload(message.get_args())
     if not args:
         await message.answer('Анекдоты',

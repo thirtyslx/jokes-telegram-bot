@@ -5,12 +5,14 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from bot.misc import Config
 from bot.handlers import register_all_handlers
 from bot.database.models import register_models
-from bot.misc.path_control import PathControl
+from bot.filters import register_all_filters
+from bot.misc.pathcontrol import PathControl
 
 
 async def __on_start_up(dp: Dispatcher) -> None:
     logger.info('Bot started')
     register_models()
+    register_all_filters(dp)
     register_all_handlers(dp)
 
 

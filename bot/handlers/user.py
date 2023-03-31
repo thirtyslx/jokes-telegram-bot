@@ -4,12 +4,14 @@ from aiogram.dispatcher.filters import Text
 from aiogram.utils.deep_linking import get_start_link
 
 from bot.database.methods.get import get_joke_by_category, get_categories
+from bot.database.methods.update import set_default_category
 from bot.keyboards import ReplyKb, InlineKb
 from bot.misc import Config, b, u, code, url
-from bot.parser import gather_data
 
 
-async def change_category(message: Message, category: str):
+async def change_category(update: Message | CallbackQuery, category: str):
+    set_default_category(update.from_user.id, category)
+    message = update.message if type(update) == CallbackQuery else update
     await message.answer(b(f'Категория изменена на "{code(category)}"'),
                          reply_markup=ReplyKb.get_main(category))
 
@@ -35,7 +37,7 @@ async def __handle_random_joke(message: Message):
 async def __handle_change_category(query: CallbackQuery):
     category = query.data.lstrip('change-category-')
     await query.bot.answer_callback_query(query.id)
-    await change_category(query.message, category)
+    await change_category(query, category)
 
 
 async def __handle_list_categories(message: Message):

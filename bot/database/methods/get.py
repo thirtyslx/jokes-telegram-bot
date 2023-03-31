@@ -1,7 +1,7 @@
 from sqlalchemy.sql.expression import func
 
 from bot.database.main import Database
-from bot.database.models import Joke
+from bot.database.models import User, Joke
 from bot.misc.config import Config
 
 
@@ -17,3 +17,7 @@ def get_categories() -> tuple[str, str]:
     query = Database().session.query(Joke.category).distinct().all()
     categories = (Config.RAND_CATEGORY, *[el[0] for el in query])
     return categories
+
+
+def get_default_category(telegram_id: int) -> str:
+    return Database().session.query(User.default_category).filter(User.telegram_id == telegram_id).one()[0]

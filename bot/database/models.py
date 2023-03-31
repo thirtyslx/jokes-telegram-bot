@@ -9,7 +9,6 @@ class User(Database.BASE):
     id = Column(Integer, primary_key=True, autoincrement=True)
     telegram_id = Column(Integer, nullable=False, unique=True)
     admin = Column(Integer, default=0)
-    name = Column(String, nullable=True)
     default_category = Column(String, default=Config.RAND_CATEGORY)
 
 

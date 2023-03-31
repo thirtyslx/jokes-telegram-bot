@@ -4,14 +4,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from bot.misc.singleton import SingletonMeta
+from bot.misc import SingletonMeta, PathControl
 
 
 class Database(metaclass=SingletonMeta):
     BASE: Final = declarative_base()
 
     def __init__(self):
-        self.__engine = create_engine('sqlite:///database/jokes.db')
+        self.__engine = create_engine(f'sqlite:///{PathControl.get("bot/database/jokes.db")}')
         session = sessionmaker(bind=self.__engine)
         self.__session = session()
 

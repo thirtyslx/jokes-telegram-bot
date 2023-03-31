@@ -6,7 +6,8 @@ from aiogram.utils.deep_linking import get_start_link
 from bot.database.methods.get import get_joke_by_category, get_categories
 from bot.database.methods.update import set_default_category
 from bot.keyboards import ReplyKb, InlineKb
-from bot.misc import Config, b, u, code, url
+from bot.misc import Config
+from bot.misc.html_tags import b, u, code, url
 
 
 async def change_category(update: Message | CallbackQuery, category: str):

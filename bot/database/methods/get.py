@@ -1,8 +1,8 @@
 from sqlalchemy.sql.expression import func
 
-from bot.database.main import Database
+from bot.database import Database
 from bot.database.models import User, Joke
-from bot.misc.config import Config
+from bot.misc import Config
 
 
 def get_joke_by_category(category: str) -> tuple[str, str]:

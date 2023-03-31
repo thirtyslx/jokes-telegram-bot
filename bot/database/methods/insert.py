@@ -1,4 +1,4 @@
-from bot.database.main import Database
+from bot.database import Database
 from bot.database.models import Joke
 
 

@@ -2,11 +2,10 @@ from loguru import logger
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
-from bot.misc import Config
+from bot.misc import Config, PathControl
 from bot.handlers import register_all_handlers
 from bot.database.models import register_models
 from bot.filters import register_all_filters
-from bot.misc.path_control import PathControl
 
 
 async def __on_start_up(dp: Dispatcher) -> None:

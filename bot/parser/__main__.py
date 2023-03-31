@@ -7,6 +7,7 @@ from fake_useragent import UserAgent
 from aiohttp import ClientSession
 import asyncio
 
+from bot.database import register_models
 from bot.database.methods.insert import save_joke
 from bot.database.methods.delete import delete_all_jokes
 
@@ -67,4 +68,5 @@ async def gather_data() -> None:
 
 
 if __name__ == '__main__':
+    register_models()
     asyncio.run(gather_data())

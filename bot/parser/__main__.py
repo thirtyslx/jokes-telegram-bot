@@ -1,5 +1,5 @@
 from loguru import logger
-from time import time
+from time import perf_counter
 from contextlib import contextmanager
 
 from bs4 import BeautifulSoup
@@ -14,9 +14,9 @@ from bot.database.methods.delete import delete_all_jokes
 
 @contextmanager
 def __timed(message: str = 'timed: ', precision: int = 3) -> None:
-    before = time()
+    before = perf_counter()
     yield
-    after = time()
+    after = perf_counter()
     took = round(after - before, precision)
     logger.info(message.format(took) if '{}' in message else f'{message}{took}')
 

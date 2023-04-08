@@ -1,6 +1,6 @@
 from loguru import logger
-from time import perf_counter
 from contextlib import contextmanager
+import time
 
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
@@ -14,9 +14,9 @@ from bot.database.methods.delete import delete_all_jokes
 
 @contextmanager
 def __timed(message: str = 'timed: ', precision: int = 3) -> None:
-    before = perf_counter()
+    before = time.perf_counter()
     yield
-    after = perf_counter()
+    after = time.perf_counter()
     took = round(after - before, precision)
     logger.info(message.format(took) if '{}' in message else f'{message}{took}')
 
@@ -36,11 +36,8 @@ async def __get_categories(s: ClientSession) -> list[tuple[str, str]]:
     category_items = soup.find_all('a', class_='menuanekdot')
     # removing unwanted categories
     category_items = category_items[7:-2]
-    # todo: remove slice
-    # category_items = category_items[0:1]
     for i in 13, 7, 6, 4:
         del category_items[i]
-    category_items = category_items[19:]
     category_data = [(f'https://anekdotov.net{c.get("href")}', c.text.strip().capitalize()) for c in category_items]
     return category_data
 

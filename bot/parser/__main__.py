@@ -37,9 +37,10 @@ async def __get_categories(s: ClientSession) -> list[tuple[str, str]]:
     # removing unwanted categories
     category_items = category_items[7:-2]
     # todo: remove slice
-    category_items = category_items[0:1]
-    # for i in 13, 7, 6, 4:
-    #     del category_items[i]
+    # category_items = category_items[0:1]
+    for i in 13, 7, 6, 4:
+        del category_items[i]
+    category_items = category_items[19:]
     category_data = [(f'https://anekdotov.net{c.get("href")}', c.text.strip().capitalize()) for c in category_items]
     return category_data
 

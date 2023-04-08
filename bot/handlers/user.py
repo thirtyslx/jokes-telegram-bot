@@ -21,7 +21,7 @@ async def __send_joke(message: Message, joke: str,
                       category: str, top_text: str):
     joke = joke.replace('\n', '\n\n')
     link = await get_start_link(f'change-category-{category}', encode=True)
-    await message.answer(f'{u(b(top_text))} ({b(url(link, category))})\n\n{joke}',
+    await message.answer(f'{u(b(top_text))} ({b(url(link, category))})\n\n{joke}\n\n© www.anekdotov.net',
                          reply_markup=ReplyKb.get_main(category))
 
 

@@ -51,22 +51,22 @@ async def __cmd_change_category(message: Message):
     if category in get_categories():
         await change_category(message, category)
     elif category:
-        await message.answer('\n'.join((b(f'Error: {code(category)}: No such category'),
+        await message.answer('\n'.join((b(f'Ошибка: {code(category)}: Не найдено такой категории'),
                                         '',
-                                        b('To get list of available categories you can use:'),
+                                        b('Чтобы получить список доступных категорий, вы можете использовать:'),
                                         code('/list_categories'))),
                              reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
     else:
-        await message.answer('\n'.join((u(b('Usage:')),
+        await message.answer('\n'.join((u(b('Использование:')),
                                         code("/change_category [category]"),
                                         '',
-                                        b('To get list of available categories you can use:'),
+                                        b('Чтобы получить список доступных категорий, вы можете использовать:'),
                                         code('/list_categories'))),
                              reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
 
 
 async def __cmd_list_categories(message: Message):
-    await message.answer('\n'.join((u(b('Available categories are:')),
+    await message.answer('\n'.join((u(b('Доступные категории:')),
                                     *[f'{" " * 8}{c}' for c in get_categories()])),
                          reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
 

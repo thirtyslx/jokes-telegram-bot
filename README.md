@@ -1,6 +1,7 @@
 # Jokes Telegram Bot
 
 Telegram bot, that can send you random jokes or jokes from specific category.
+
 Includes jokes parser which can be activated manually or from telegram.
 Parser collects jokes from [anekdotov.net](https://anekdotov.net) site.
 
@@ -8,7 +9,7 @@ Parser collects jokes from [anekdotov.net](https://anekdotov.net) site.
 
 ### Clone repository
 
-```shell
+```sh
 git clone https://gitlab.com/assbreaker/jokes-telegram-bot.git
 ```
 
@@ -16,21 +17,21 @@ git clone https://gitlab.com/assbreaker/jokes-telegram-bot.git
 
 #### Linux or MacOS
 
-```shell
+```sh
 python -m venv venv
 source venv/bin/activate
 ```
 
 #### Windows
 
-```shell
+```bat
 python3 -m venv venv
 .\venv\Scripts\activate.bat
 ```
 
 ### Install requirements
 
-```shell
+```sh
 pip install -r requirements.txt
 ```
 
@@ -38,7 +39,7 @@ pip install -r requirements.txt
 
 ### Collect jokes database
 
-```shell
+```sh
 python3 -m bot.parser
 ```
 
@@ -46,16 +47,16 @@ python3 -m bot.parser
 
 #### Required
 
-* `TOKEN` (you can get it from [@BotFather]((https://t.me/BotFather)))
+* TOKEN (you can get it from [@BotFather](https://t.me/BotFather))
 
 #### Optional
 
-* `DEBUG` (insert any symbols to activate debug mode)
-* `BLACKLIST` (list of unwanted categories while collecting jokes database)
+* DEBUG (insert any symbols to activate debug mode)
+* BLACKLIST (list of unwanted categories while collecting jokes database)
 
 ### Start bot
 
-```shell
+```sh
 python3 -m bot
 ```
 

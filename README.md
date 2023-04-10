@@ -1,31 +1,64 @@
 # Jokes Telegram Bot
 
-### Telegram bot, that can send you random jokes or jokes from specific category.
+Telegram bot, that can send you random jokes or jokes from specific category.
+Includes jokes parser which can be activated manually or from telegram.
+Parser collects jokes from [anekdotov.net](https://anekdotov.net) site.
 
-## How to set up
+## Installation
 
-### 1. Install required libraries
+### Clone repository
 
-``` shell
+```shell
+git clone https://gitlab.com/assbreaker/jokes-telegram-bot.git
+```
+
+### Create and activate virtual environment
+
+#### Linux or MacOS
+
+```shell
+python -m venv venv
+source venv/bin/activate
+```
+
+#### Windows
+
+```shell
+python3 -m venv venv
+.\venv\Scripts\activate.bat
+```
+
+### Install requirements
+
+```shell
 pip install -r requirements.txt
 ```
 
-### 2. Collect jokes database (if you don't have one)
+## Running
 
-You can specify database name and table where jokes will be saved in `config.py`
-
-The command below will scrap and save jokes from `anekdotov.net`
-
-``` shell
-python collect_data.py
-```
-
-### 3. Configure bot token
-
-You can use env variable `token` or change the way it defines `config.py`
-
-### 4. Run bot
+### Collect jokes database
 
 ```shell
-python bot.py
+python3 -m bot.parser
 ```
+
+### Setup environment variables
+
+#### Required
+
+* `TOKEN` (you can get it from [@BotFather]((https://t.me/BotFather)))
+
+#### Optional
+
+* `DEBUG` (insert any symbols to activate debug mode)
+* `BLACKLIST` (list of unwanted categories while collecting jokes database)
+
+### Start bot
+
+```shell
+python3 -m bot
+```
+
+## Licence
+
+This program is licenced under the GPLv3 licence, which you can find in the [LICENCE](LICENCE) file.

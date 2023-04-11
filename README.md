@@ -60,6 +60,6 @@ python3 -m bot.parser
 python3 -m bot
 ```
 
-## Licence
+## License
 
-This program is licenced under the GPLv3 licence, which you can find in the [LICENCE](LICENCE) file.
+This program is licensed under the GPLv3 license, which you can find in the [LICENSE](LICENSE) file.

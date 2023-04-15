@@ -10,6 +10,7 @@ import asyncio
 from bot.database import register_models
 from bot.database.methods.insert import save_joke
 from bot.database.methods.delete import delete_all_jokes
+from bot.misc import backup_database, restore_database_from_backup
 
 
 @contextmanager
@@ -51,18 +52,23 @@ async def __get_jokes_from_page(s: ClientSession, url: str,
 
 
 async def gather_data() -> None:
+    backup_database()
     delete_all_jokes()
-    with __timed('Gathered data in {} seconds'):
-        async with ClientSession() as s:
-            tasks = []
-            logger.info('Started gathering data')
-            for link, category in await __get_categories(s):
-                # each category has 36 pages, their indexes starts from 0
-                for page in range(0, 36):
-                    tasks.append(asyncio.create_task(
-                        save_joke(jokes=await __get_jokes_from_page(s, f'{link}index-page-{page}.html', category, page),
-                                  category=category)))
-            await asyncio.gather(*tasks)
+    async with ClientSession() as s:
+        tasks = []
+        logger.info('Started gathering data')
+        for link, category in await __get_categories(s):
+            # each category has 36 pages, their indexes starts from 0
+            for page in range(0, 36):
+                tasks.append(asyncio.create_task(
+                    save_joke(jokes=await __get_jokes_from_page(s, f'{link}index-page-{page}.html', category, page),
+                              category=category)))
+        try:
+            with __timed('Gathered data in {} seconds'):
+                await asyncio.gather(*tasks)
+        except Exception as _ex:
+            logger.exception(_ex)
+            restore_database_from_backup()
 
 
 if __name__ == '__main__':

@@ -8,4 +8,4 @@ def delete_all_jokes():
     session = Database().session
     session.query(Joke).delete(synchronize_session=False)
     session.commit()
-    logger.info('Deleted all jokes from db')
+    logger.info('Deleted all jokes from database')

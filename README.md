@@ -5,6 +5,8 @@ Telegram bot, that can send you random jokes or jokes from specific category.
 Includes jokes parser which can be activated manually or from telegram.
 Parser collects jokes from [anekdotov.net](https://anekdotov.net) site.
 
+![Explanatory note (RU)](NOTE.md)
+
 ## Installation
 
 ### Clone repository

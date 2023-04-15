@@ -1,5 +1,9 @@
 # Jokes Telegram Bot
 
+![](https://badgen.net/gitlab/license/assbreaker/jokes-telegram-bot)
+![](https://badgen.net/badge/Python/3.10/blue?icon=pypi)
+![](https://badgen.net/gitlab/last-commit/assbreaker/jokes-telegram-bot)
+
 Telegram bot, that can send you random jokes or jokes from specific category.
 
 Includes jokes parser which can be activated manually or from telegram.

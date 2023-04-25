@@ -18,10 +18,11 @@ async def change_category(update: Message | CallbackQuery, category: str):
 
 
 async def __send_joke(message: Message, joke: str,
-                      category: str, top_text: str):
+                      joke_category: str, category: str,
+                      top_text: str):
     joke = joke.replace('\n', '\n\n')
-    link = await get_start_link(f'change-category-{category}', encode=True)
-    await message.answer(f'{u(b(top_text))} ({b(url(link, category))})\n\n{joke}\n\n© www.anekdotov.net',
+    link = await get_start_link(f'change-category-{joke_category}', encode=True)
+    await message.answer(f'{u(b(top_text))} ({b(url(link, joke_category))})\n\n{joke}\n\n© www.anekdotov.net',
                          reply_markup=ReplyKb.get_main(category))
 
 
@@ -29,10 +30,10 @@ async def __handle_random_joke(message: Message):
     if message.text == Config.RAND_BTN:
         category = Config.RAND_BTN
     else:
-        category = message.text.replace('(', '').replace(')', '').lstrip('Случайный ')
+        category = message.text.lstrip('Случайный ')[1:-1]
     joke, joke_category = get_joke_by_category(category)
     await __send_joke(message=message, joke=joke,
-                      category=joke_category, top_text='Случайный Анекдот')
+                      joke_category=joke_category, category=category, top_text='Случайный Анекдот')
 
 
 async def __handle_change_category(query: CallbackQuery):

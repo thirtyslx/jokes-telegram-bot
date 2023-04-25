@@ -15,6 +15,7 @@ async def change_category(update: Message | CallbackQuery, category: str):
     message = update.message if type(update) == CallbackQuery else update
     await message.answer(b(f'Категория изменена на "{code(category)}"'),
                          reply_markup=ReplyKb.get_main(category))
+    await message.delete()
 
 
 async def __send_joke(message: Message, joke: str,

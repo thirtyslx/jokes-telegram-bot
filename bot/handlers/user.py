@@ -1,5 +1,5 @@
 from aiogram import Dispatcher
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, BotCommand
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.deep_linking import get_start_link
 
@@ -70,6 +70,13 @@ async def __cmd_list_categories(message: Message):
     await message.answer('\n'.join((u(b('Доступные категории:')),
                                     *[f'{" " * 8}{c}' for c in get_categories()])),
                          reply_markup=ReplyKb.get_main(Config.RAND_CATEGORY))
+
+
+def get_user_commands(dp: Dispatcher):
+    return (
+        ('/change_category', 'Изменить категорию.'),
+        ('/list_categories', 'Список всех доступных категорий.'),
+    )
 
 
 def register_user_handlers(dp: Dispatcher) -> None:

@@ -1,5 +1,5 @@
 from aiogram import Dispatcher
-from aiogram.types import Message
+from aiogram.types import Message, BotCommand
 from aiogram.utils.deep_linking import decode_payload
 
 from bot.database.methods.create import create_user
@@ -23,6 +23,13 @@ async def __cmd_start(message: Message) -> None:
 
 async def __help(message: Message):
     await message.answer()
+
+
+def get_other_commands(dp: Dispatcher):
+    return (
+        ('/start', 'Вернуться в начальное положение.'),
+        ('/help', 'Помощь.'),
+    )
 
 
 def register_other_handlers(dp: Dispatcher) -> None:

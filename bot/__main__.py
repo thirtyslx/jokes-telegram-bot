@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from bot.misc import Config, PathControl
-from bot.handlers import register_all_handlers
+from bot.handlers import register_all_handlers, register_all_commands
 from bot.database.models import register_models
 from bot.filters import register_all_filters
 
@@ -13,6 +13,7 @@ async def __on_start_up(dp: Dispatcher) -> None:
     register_models()
     register_all_filters(dp)
     register_all_handlers(dp)
+    await register_all_commands(dp)
 
 
 def __start_telegram_bot() -> None:

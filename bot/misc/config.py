@@ -10,3 +10,5 @@ class Config:
     # Label, that means 'random category'
     RAND_CATEGORY: Final = 'СЛУЧАЙНАЯ'
     RAND_BTN: Final = 'Случайный анекдот'
+
+    JOKES_COPYRIGHT: Final = 'www.anekdotov.net'

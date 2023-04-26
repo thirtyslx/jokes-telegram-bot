@@ -5,10 +5,9 @@ from typing import Final
 class Config:
     TOKEN: Final = environ.get('TOKEN', 'define me')
     DEBUG: Final = bool(len(environ.get('DEBUG', '')))
-    BLACKLIST = tuple(map(int, environ.get('BLACKLIST_CATEGORY_IDS', ()).split(', ')))
+    BLACKLIST_CATEGORY_IDS = tuple(map(int, environ.get('BLACKLIST_CATEGORY_IDS', ()).split(', ')))
     ADMINS = tuple(map(int, environ.get('ADMINS', ()).split(', ')))
 
-    # Label, that means 'random category'
     RAND_CATEGORY: Final = 'СЛУЧАЙНАЯ'
     RAND_BTN: Final = 'Случайный анекдот'
 

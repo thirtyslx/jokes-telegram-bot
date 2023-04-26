@@ -18,5 +18,5 @@ def code(text: str) -> str:
     return use_html_tag(text, 'code')
 
 
-def url(url: str, text: str) -> str:
+def href(url: str, text: str) -> str:
     return f'<a href="{url}">{text}</a>'

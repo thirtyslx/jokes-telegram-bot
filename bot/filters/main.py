@@ -2,7 +2,7 @@ from aiogram import Dispatcher
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Filter
 
-from bot.database.methods.other import is_admin
+from bot.database.methods.get import is_admin
 
 
 class IsAdmin(Filter):

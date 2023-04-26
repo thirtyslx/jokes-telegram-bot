@@ -37,7 +37,7 @@ async def __get_categories(s: ClientSession) -> list[tuple[str, str]]:
     category_items = soup.find_all('a', class_='menuanekdot')
     # removing unwanted categories
     category_items = category_items[7:-2]
-    for i in Config.BLACKLIST:
+    for i in Config.BLACKLIST_CATEGORY_IDS:
         del category_items[i]
     category_data = [(f'https://anekdotov.net{c.get("href")}', c.text.strip().capitalize()) for c in category_items]
     return category_data

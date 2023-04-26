@@ -8,9 +8,9 @@ from bot.handlers.other import register_other_handlers, get_other_commands
 
 async def register_all_commands(dp: Dispatcher) -> None:
     commands = (
-        *get_admin_commands(dp),
-        *get_user_commands(dp),
-        *get_other_commands(dp),
+        *get_admin_commands(),
+        *get_user_commands(),
+        *get_other_commands(),
     )
     await dp.bot.set_my_commands([BotCommand(*command) for command in commands])
 
